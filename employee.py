@@ -1,6 +1,6 @@
 import sqlite3
 from tkinter import *
-
+import re
 from PIL import Image, ImageTk, ImageDraw
 from tkinter import ttk, messagebox
 
@@ -153,6 +153,7 @@ class employeeClass:
 
 
 
+
 #======================================================================
 
     def clear(self):
@@ -233,9 +234,20 @@ class employeeClass:
                                  self.txt_address.get("1.0",END),
                                  self.var_salary.get(),
                                 ))
-                    con.commit()
-                    messagebox.showinfo("Success","Employee Added Successfuly",parent=self.root)
-                    self.show()
+                    if  self.var_email.get().find("@")==-1 :
+                        messagebox.showerror("Error", "Email does not exist", parent=self.root)
+                    elif self.var_pass.get().find("@")==-1 and self.var_pass.get().find("$")==-1 and self.var_pass.get().find("%")==-1 and self.var_pass.get().find("#")==-1:
+                            passwd=self.var_pass.get()
+                            if len(passwd) < 6:
+                                messagebox.showerror("Error", "Please enter password with at least one special character and more than 6 characters", parent=self.root)
+                            elif len(passwd) > 20:
+                                messagebox.showerror("Error", "Please enter a password with at least one special character and less than 20 characters", parent=self.root)
+                    elif len(self.var_contact.get()) !=10 :
+                        messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Employee Added Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
 
@@ -268,9 +280,20 @@ class employeeClass:
                                  self.var_salary.get(),
                                  self.var_emp_id.get()
                                  ))
-                    con.commit()
-                    messagebox.showinfo("Success", "Employee Update Successfuly", parent=self.root)
-                    self.show()
+                    if  self.var_email.get().find("@")==-1 :
+                        messagebox.showerror("Error", "Email does not exist", parent=self.root)
+                    elif self.var_pass.get().find("@")==-1 and self.var_pass.get().find("$")==-1 and self.var_pass.get().find("%")==-1 and self.var_pass.get().find("#")==-1:
+                            passwd=self.var_pass.get()
+                            if len(passwd) < 6:
+                                messagebox.showerror("Error", "Please enter password with at least one special character and more than 6 characters", parent=self.root)
+                            elif len(passwd) > 20:
+                                messagebox.showerror("Error", "Please enter a password with at least one special character and less than 20 characters", parent=self.root)
+                    elif len(self.var_contact.get()) !=10 :
+                        messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Employee Update Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to {str(ex)}")
 

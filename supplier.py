@@ -134,9 +134,12 @@ class supplierClass:
                          self.var_contact.get(),                       
                          self.txt_desc.get("1.0", END),                        
                          ))
-                    con.commit()
-                    messagebox.showinfo("Success", "Supplier Added Successfuly", parent=self.root)
-                    self.show()
+                    if len(self.var_contact.get()) != 10:
+                         messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Supplier Added Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to {str(ex)}")
 
@@ -159,9 +162,12 @@ class supplierClass:
                                   self.var_contact.get(),
                                   self.txt_desc.get("1.0", END),
                                   self.var_sup_invoice.get(),))
-                    con.commit()
-                    messagebox.showinfo("Success", "Supplier Update Successfuly", parent=self.root)
-                    self.show()
+                    if len(self.var_contact.get()) != 10:
+                         messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Supplier Update Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
                 messagebox.showerror("Error", f"Error due to {str(ex)}")
 

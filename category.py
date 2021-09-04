@@ -40,9 +40,10 @@ class categoryClass:
         lbl_name=Label(self.root,text="Category Name",font=("goudy old style",30),bg="#E0FFFF").place(x=350,y=100)
         txt_name=Entry(self.root,textvariable=self.var_name,font=("goudy old style",18),bg="lightyellow").place(x=350,y=170, width=300,height=40)
 
-        btn_add=Button(self.root,text="ADD",command=self.add,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=350,y=240,width=80,height=40)
-        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="red",fg="white",cursor="hand2").place(x=460,y=240,width=80,height=40)
-        self.btn_clear = Button(self.root, text="Clear", font=("goudy old style", 15, "bold"), bg="#607d8b", fg="white",cursor="hand2",command=self.clear).place(x=570,y=240,width=80,height=40)
+        btn_add=Button(self.root,text="ADD",command=self.add,font=("goudy old style",15),bg="#2196f3",fg="white",cursor="hand2").place(x=350,y=240,width=65,height=40)
+        btn_update=Button(self.root,text="Update",command=self.update,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=430,y=240,width=65,height=40)
+        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="red",fg="white",cursor="hand2").place(x=510,y=240,width=65,height=40)
+        self.btn_clear = Button(self.root, text="Clear", font=("goudy old style", 15, "bold"), bg="#607d8b", fg="white",cursor="hand2",command=self.clear).place(x=590,y=240,width=65,height=40)
 
 
         # ========== category details========
@@ -97,6 +98,29 @@ class categoryClass:
                     self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to {str(ex)}")
+
+    def update(self):
+        con = sqlite3.connect(database="suppermarket.db")
+        cur = con.cursor()
+        try:
+            if self.var_cat_id.get() == "":
+                messagebox.showerror("Error", "Please select Category from list", parent=self.root)
+            else:
+                cur.execute("select * from category where cid=? ", (self.var_cat_id.get(),))
+                row = cur.fetchone()
+                if row == None:
+                    messagebox.showerror("Error", "Invalid Category ", parent=self.root)
+                else:
+                    cur.execute("update category set  name=?  where cid=? ",
+                                (self.var_name.get(),
+                                self.var_cat_id.get(),))
+                    con.commit()
+                    messagebox.showinfo("Success", "Category Update Successfuly", parent=self.root)
+                    self.show()
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to {str(ex)}", parent=self.root)
+
+
     def delete(self):
         con = sqlite3.connect(database="suppermarket.db")
         cur = con.cursor()

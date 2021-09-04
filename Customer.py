@@ -181,9 +181,12 @@ class customerClass:
                                  self.var_cus_number.get(),
                                  self.var_cus_price.get(),
                                  self.var_cus_total.get(),))
-                    con.commit()
-                    messagebox.showinfo("Success", "Customer Added Successfuly", parent=self.root)
-                    self.show()
+                    if len(self.var_cus_contact.get()) != 10:
+                        messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Customer Added Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to {str(ex)}", parent=self.root)
 
@@ -211,9 +214,12 @@ class customerClass:
                                  self.var_cus_price.get(),
                                  self.var_cus_total.get(),
                                  self.var_cus_id.get(),))
-                    con.commit()
-                    messagebox.showinfo("Success", "Customer Update Successfuly", parent=self.root)
-                    self.show()
+                    if len(self.var_cus_contact.get()) != 10:
+                        messagebox.showerror("Error", "Error phone contact", parent=self.root)
+                    else:
+                        con.commit()
+                        messagebox.showinfo("Success", "Customer Update Successfuly", parent=self.root)
+                        self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to {str(ex)}", parent=self.root)
 

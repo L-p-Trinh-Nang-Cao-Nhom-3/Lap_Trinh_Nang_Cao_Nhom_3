@@ -1,2 +1,2 @@
-email='example@gmail.com'
-pass_='123456'
+email_='email of me'
+pass_='pas of me'

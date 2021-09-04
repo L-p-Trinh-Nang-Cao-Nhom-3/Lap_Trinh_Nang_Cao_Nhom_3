@@ -76,7 +76,7 @@ class Login_system:
             if self.employee_id.get()=="" or self.password.get()=="":
                 messagebox.showerror("Error","All Fields are required", parent=self.root)
             else:
-                cur.execute("select utype from employee where eid=? and password=?",(self.employee_id.get(),self.password.get(),))
+                cur.execute("select utype from employee where email=? and password=?",(self.employee_id.get(),self.password.get(),))
                 user = cur.fetchone()
                 if user==None:
                     messagebox.showerror("Error", "Invalid Employee ID or Password", parent=self.root)
@@ -98,7 +98,7 @@ class Login_system:
             if self.employee_id.get() == "":
                 messagebox.showerror("Error", "Employee ID must be required", parent=self.root)
             else:
-                cur.execute("select email from employee where eid=?",(self.employee_id.get(),))
+                cur.execute("select email from employee where email=?",(self.employee_id.get(),))
                 email = cur.fetchone()
                 if email== None:
                     messagebox.showerror("Error", "Invalid Employee ID, Try again!", parent=self.root)
@@ -146,9 +146,16 @@ class Login_system:
 
             try:
                 cur.execute("update employee set password=? where eid=?",(self.var_new_pass.get(),self.employee_id.get(),))
-                con.commit()
-                messagebox.showinfo("Success", "Change Password success", parent=self.forget_win)
-                self.forget_win.destroy()
+                if self.var_new_pass.get().find("@") == -1 and self.var_new_pass.get().find("$") == -1 and self.var_new_pass.get().find("%") == -1 and self.var_new_pass.get().find("#") == -1:
+                    passwd = self.var_new_pass.get()
+                    if len(passwd) < 6:
+                        messagebox.showerror("Error","Please enter password with at least one special character and more than 6 characters", parent=self.root)
+                    elif len(passwd) > 20:
+                        messagebox.showerror("Error", "Please enter a password with at least one special character and less than 20 characters", parent=self.root)
+                else:
+                    con.commit()
+                    messagebox.showinfo("Success", "Change Password success", parent=self.forget_win)
+                    self.forget_win.destroy()
             except Exception as ex:
                 messagebox.showerror("Error", f"Error due to {str(ex)}", parent=self.root)
 

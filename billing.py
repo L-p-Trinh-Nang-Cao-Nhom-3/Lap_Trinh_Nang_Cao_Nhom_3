@@ -305,8 +305,6 @@ class BillingClass:
             # price_cal = float(price_cal)
             price_cal = self.var_price.get()
             cart_data = [self.var_pid.get(), self.var_pname.get(), price_cal, self.var_qty.get(), self.var_stock.get()]
-
-
             # ================ update_cart ===========
             present = 'no'
             index_ = 0
